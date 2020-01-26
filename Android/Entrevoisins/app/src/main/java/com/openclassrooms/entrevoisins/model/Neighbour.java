@@ -16,16 +16,30 @@ public class Neighbour {
     /** Avatar */
     private String avatarUrl;
 
+    /**Favorite Check*/
+    private boolean favoriteCheck;
+
+
     /**
      * Constructor
      * @param id
      * @param name
      * @param avatarUrl
+     * @param favoriteCheck
      */
-    public Neighbour(Integer id, String name, String avatarUrl) {
+    public Neighbour(Integer id, String name, String avatarUrl, boolean favoriteCheck) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
+        this.favoriteCheck = favoriteCheck;
+    }
+
+    public boolean isFavoriteCheck() {
+        return favoriteCheck;
+    }
+
+    public void setFavoriteCheck(boolean favoriteCheck) {
+        this.favoriteCheck = favoriteCheck;
     }
 
     public Integer getId() {

@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,46 +13,43 @@ import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class NeighbourFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FavoritesFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
+    private List<Neighbour> mFavorites;
 
 
-    /**
-     * Create and return a new instance
-     * @return @{@link NeighbourFragment}
-     */
-    public static NeighbourFragment newInstance() {
-        NeighbourFragment fragment = new NeighbourFragment();
-        Bundle FavoriteTab = new Bundle();
-        //FavoriteTab.putString("Tab", Tab);
-        fragment.setArguments(FavoriteTab);
-        return fragment;
+    public FavoritesFragment() {
+        // Required empty public constructor
     }
 
+    public static FavoritesFragment newInstance() {
+        return (new FavoritesFragment());
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
+        // Inflate the layout for this fragment
+        //return inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -60,37 +58,23 @@ public class NeighbourFragment extends Fragment {
         return view;
     }
 
-    /**
-     * Init the List of neighbours
-     */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
 
+        mNeighbours = mApiService.getNeighbours();
+        mFavorites = listFavorites();
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites));
+    }
+
+    public List<Neighbour> listFavorites() {
+        List<Neighbour> FavoritesNeighbours = new ArrayList<>();
+        for (Neighbour i : mNeighbours) {
+            if (i.isFavoriteCheck() == true) {
+                FavoritesNeighbours.add(i);
 
             }
 
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    /**
-     * Fired if the user clicks on a delete button
-     * @param event
-     */
-    @Subscribe
-    public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
-        initList();
+        }
+        return FavoritesNeighbours;
     }
 }
+
