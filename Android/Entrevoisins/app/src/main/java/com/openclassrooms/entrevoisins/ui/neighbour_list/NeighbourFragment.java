@@ -36,9 +36,8 @@ public class NeighbourFragment extends Fragment {
      */
     public static NeighbourFragment newInstance() {
         NeighbourFragment fragment = new NeighbourFragment();
-        Bundle FavoriteTab = new Bundle();
-        //FavoriteTab.putString("Tab", Tab);
-        fragment.setArguments(FavoriteTab);
+       // Bundle FavoriteTab = new Bundle();
+       // fragment.setArguments(FavoriteTab);
         return fragment;
     }
 
