@@ -55,6 +55,15 @@ public class NeighbourProfileActivity extends AppCompatActivity {
         click();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent ListNeighbour = new Intent(NeighbourProfileActivity.this , ListNeighbourActivity.class);
+        ListNeighbour.putExtra("neighbour" , selectedNeighbour);
+        NeighbourProfileActivity.this.startActivity(ListNeighbour);
+
+
+    }
+
 
 
 

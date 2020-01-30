@@ -17,6 +17,7 @@ import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -76,6 +77,27 @@ public class FavoritesFragment extends Fragment {
 
         }
         return FavoritesNeighbours;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * Fired if the user clicks on a delete button
+     * @param event
+     */
+    @Subscribe
+    public void onDeleteNeighbour(DeleteNeighbourEvent event) {
+        mApiService.deleteNeighbour(event.neighbour);
+        initList();
     }
 }
 
