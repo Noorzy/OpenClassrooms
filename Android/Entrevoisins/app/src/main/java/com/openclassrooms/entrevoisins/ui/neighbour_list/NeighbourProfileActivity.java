@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
@@ -28,7 +29,7 @@ public class NeighbourProfileActivity extends AppCompatActivity {
     @BindView(R.id.profilePicture)
     public ImageView profilePicture;
     @BindView(R.id.favoriteButton)
-    public CheckBox favoriteButton;
+    public FloatingActionButton favoriteButton;
 
 
 
@@ -94,9 +95,12 @@ public class NeighbourProfileActivity extends AppCompatActivity {
     }
     public void favoriteButtonStatusCheck(){
         if (selectedNeighbour.isFavoriteCheck() == true) {
-            favoriteButton.setChecked(true);
+
+
+            favoriteButton.setImageDrawable(getResources().getDrawable( R.drawable.ic_star_white_24dp ));
         }else {
-            favoriteButton.setChecked(false);
+            favoriteButton.setImageDrawable(getResources().getDrawable( R.drawable.ic_star_border_white_24dp));
+
         }
     }
 }
