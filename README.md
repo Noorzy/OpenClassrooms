@@ -7,7 +7,7 @@ This repository contains the third project of Openclassrooms's android developme
 ## Setup
 Download or clone the repository and open/import it in Android Studio.
 
-Run the app in Android Studio.
+Build and run the app in Android Studio.
 
 
 
