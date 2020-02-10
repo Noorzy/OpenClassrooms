@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,13 +30,8 @@ public class NeighbourProfileActivity extends AppCompatActivity {
     @BindView(R.id.favoriteButton)
     public FloatingActionButton favoriteButton;
 
-
-
     private NeighbourApiService mApiService;
     private Neighbour selectedNeighbour;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +43,7 @@ public class NeighbourProfileActivity extends AppCompatActivity {
         name2.setText(selectedNeighbour.getName());
         Glide.with(this).load(selectedNeighbour.getAvatarUrl()).into(profilePicture);
         mApiService = DI.getNeighbourApiService();
-
         favoriteButtonStatusCheck();
-
-
         click();
     }
 
@@ -61,12 +52,7 @@ public class NeighbourProfileActivity extends AppCompatActivity {
         Intent ListNeighbour = new Intent(NeighbourProfileActivity.this , ListNeighbourActivity.class);
         ListNeighbour.putExtra("neighbour" , selectedNeighbour);
         NeighbourProfileActivity.this.startActivity(ListNeighbour);
-
-
     }
-
-
-
 
     public void click() {
         mBackButton.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +61,6 @@ public class NeighbourProfileActivity extends AppCompatActivity {
                 Intent ListNeighbour = new Intent(v.getContext() , ListNeighbourActivity.class);
                 ListNeighbour.putExtra("neighbour" , selectedNeighbour);
                 v.getContext().startActivity(ListNeighbour);
-                //finish();
             }
         });
         favoriteButton.setOnClickListener(new View.OnClickListener() {
@@ -88,19 +73,15 @@ public class NeighbourProfileActivity extends AppCompatActivity {
                 }
                 mApiService.changeFavoriteCheck(selectedNeighbour);
                 favoriteButtonStatusCheck();
-
             }
         });
 
     }
     public void favoriteButtonStatusCheck(){
         if (selectedNeighbour.isFavoriteCheck() == true) {
-
-
             favoriteButton.setImageDrawable(getResources().getDrawable( R.drawable.ic_star_white_24dp ));
         }else {
             favoriteButton.setImageDrawable(getResources().getDrawable( R.drawable.ic_star_border_white_24dp));
-
         }
     }
 }

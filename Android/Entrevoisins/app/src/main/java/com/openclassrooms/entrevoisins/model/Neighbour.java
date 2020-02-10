@@ -112,8 +112,5 @@ public class Neighbour implements Parcelable {
         dest.writeString(name);
         dest.writeString(avatarUrl);
         dest.writeInt(favoriteCheck ? 1: 0);
-
-
-
     }
 }
